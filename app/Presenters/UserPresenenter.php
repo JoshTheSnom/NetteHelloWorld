@@ -10,6 +10,7 @@ use Tracy\Debugger;
 
 final class UserPresenter extends Nette\Application\UI\Presenter
 {
+	
 	protected function createComponentRegistrationForm(): UI\Form
 	{
 		$form = new UI\Form;
