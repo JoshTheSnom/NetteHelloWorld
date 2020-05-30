@@ -51,6 +51,7 @@ final class UserPresenter extends Nette\Application\UI\Presenter
 			$this->getUser()->login($values->name, $values->password);
 			
 			$this->flashMessage('Byl jste uspesne prihlasen.');
+			$this->flashMessage($values->name);
 			$this->redirect('Text:');
 			$values->name;
 		} catch (Nette\Security\AuthenticationException $e) {
