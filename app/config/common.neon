@@ -13,3 +13,6 @@ session:
 
 services:
 	router: App\Router\RouterFactory::createRouter
+	authenticator: Nette\Security\SimpleAuthenticator([
+			jmeno: heslo
+		])

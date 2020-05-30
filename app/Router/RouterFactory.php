@@ -18,6 +18,7 @@ final class RouterFactory
 		//$router->addRoute('<presenter>/<action>[/<id>]', 'Homepage:default');
 		$router->addRoute('login', 'User:login');
 		$router->addRoute('register', 'User:register');
+		$router->addRoute('text', 'Text:default');
 		return $router;
 	}
 }
