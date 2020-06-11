@@ -19,6 +19,8 @@ final class RouterFactory
 		$router->addRoute('login', 'User:login');
 		$router->addRoute('register', 'User:register');
 		$router->addRoute('text', 'Text:default');
+		$router->addRoute('', 'Text:default');
+		$router->addRoute('logout', 'User:logout');
 		return $router;
 	}
 }

@@ -8,6 +8,7 @@ use Nette;
 use Nette\Application\UI;
 use Tracy\Debugger;
 use Nette\Security\User;
+use App\UserStuff;
 
 final class UserPresenter extends Nette\Application\UI\Presenter
 {
@@ -22,13 +23,16 @@ final class UserPresenter extends Nette\Application\UI\Presenter
 		return $form;
 	}
 
+	/** @var UserStuff @inject */
+	public $userStuff;
+
 	public function registrationFormSucceeded(UI\Form $form, \stdClass $values): void
 	{
 		Debugger::barDump($values);
+		
+		$this->userStuff->saveUser($values->name,$values->password);
 		$this->flashMessage('Byl jste uspesne registrovan.');
 		$this->redirect('Text:');
-		$values->name;
-		
 		
 	}
 	
@@ -51,12 +55,28 @@ final class UserPresenter extends Nette\Application\UI\Presenter
 			$this->getUser()->login($values->name, $values->password);
 			
 			$this->flashMessage('Byl jste uspesne prihlasen.');
-			$this->flashMessage($values->name);
+			//$this->flashMessage($values->name);
 			$this->redirect('Text:');
 			$values->name;
 		} catch (Nette\Security\AuthenticationException $e) {
 			$this->flashMessage('Spatny username nebo heslo');
 		}
-		
+	}
+
+	public function actionLogout() {
+		$this->getUser()->logout();
+		$this->redirect('login');
+	}
+
+	public function actionLogin() {
+		if($this->getUser()->isLoggedIn()) {
+			$this->redirect('Text:');
+		}
+	}
+	
+	public function actionRegister() {
+		if($this->getUser()->isLoggedIn()) {
+			$this->redirect('Text:');
+		}
 	}
 }
